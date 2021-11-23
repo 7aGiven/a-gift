@@ -1,0 +1,24 @@
+syntax="proto3";
+option java_package = "buzz.giiiiiv.gift";
+option java_outer_classname = "Res";
+message Pb {
+    ok4 a = 4;
+}
+message ok4 {
+    repeated ok4_1 b = 1;
+}
+message ok4_1 {
+    ok4_1_3 c = 3;
+}
+message ok4_1_3 {
+    int32 d1 = 1;
+    string d2 = 2;
+    string d3 = 3;
+    string d4 = 4;
+    string d5 = 5;
+    string d6 = 6;
+    string d7 = 7;
+    string d8 = 8;
+    string d9 = 9;
+    string d10 = 10;
+}

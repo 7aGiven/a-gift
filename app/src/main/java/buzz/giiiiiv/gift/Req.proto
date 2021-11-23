@@ -1,0 +1,12 @@
+syntax="proto3";
+option java_package = "buzz.giiiiiv.gift";
+option java_outer_classname = "Req";
+message Pb {
+    	int32 a = 1;
+    	string b = 2;
+    	string c = 3;
+    	int32 d = 4;
+    	int32 e = 5;
+    	int32 f = 6;
+    	string g = 9;
+}
