@@ -51,7 +51,10 @@ class MyAccessibilityService : AccessibilityService() {
                 }
                 println(question)
                 http(question)
-            }catch (e: NullPointerException){System.out.println(e)}
+            }catch (e: Exception){
+                popup.setText(e.toString())
+                popup.show()
+            }
         }
     }
 //    fun recycle(e:AccessibilityNodeInfo,str:String){
