@@ -15,6 +15,7 @@ import kotlin.concurrent.thread
 class MyAccessibilityService : AccessibilityService() {
     lateinit var popup:Toast
     val client= OkHttpClient()
+    var question=""
 
     override fun onCreate() {
         super.onCreate()
@@ -31,24 +32,18 @@ class MyAccessibilityService : AccessibilityService() {
         }else{
             System.out.println("长按")
             try {
-//                recycle(rootInActiveWindow,"")
                 val node=rootInActiveWindow
                     .getChild(0)
                     .getChild(2)
                     .getChild(0)
                     .getChild(0)
-                    .getChild(1)
-                    .getChild(0)
-                    .getChild(0)
-                var i=1
-                var question=node.getChild(0).getChild(2).text.toString()
-                while (i<node.childCount){
-                    val child=node.getChild(i).getChild(1)
-                    if (child!=null){
-                        question+=child.text
-                    }
-                    i++
+                try {
+                    node=node.getChild(1).getChild(0).getChild(0)
+                }catch (e:Exception){
+                    println("考试")
                 }
+                question=""
+                collect(node)
                 println(question)
                 http(question)
             }catch (e: Exception){
@@ -57,14 +52,16 @@ class MyAccessibilityService : AccessibilityService() {
             }
         }
     }
-//    fun recycle(e:AccessibilityNodeInfo,str:String){
-//        println(str+e)
-//        var n=0
-//        while (n<e.childCount){
-//            recycle(e.getChild(n),str+n+",")
-//            n++
-//        }
-//    }
+    fun collect(e:AccessibilityNodeInfo){
+        if (e.text!=null){
+            question+=e.text
+        }
+        var n=0
+        while (n<e.childCount){
+            collect(e.getChild(n))
+            n++
+        }
+    }
     fun http(q:String){
         val reqbody=Req.Pb.newBuilder()
             .setA(3)
@@ -104,7 +101,7 @@ class MyAccessibilityService : AccessibilityService() {
                 span.append(result.bList[i].c.d5+"\n")
                 i++
             }
-            span.setSpan(RelativeSizeSpan(0.5f),0,span.length,Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
+            span.setSpan(RelativeSizeSpan(0.6f),0,span.length,Spannable.SPAN_EXCLUSIVE_INCLUSIVE)
             popup.setText(span)
             popup.show()
         }
